@@ -1,4 +1,7 @@
-const Query = {
+import { QueryResolvers } from "../resolvers-types.generated"
+import { TwitterResolverContext } from "../resolvers"
+
+const queryTwitterResolver: QueryResolvers<TwitterResolverContext> = {
   currentUser: () => {
     return {
       id: "123",
@@ -10,9 +13,26 @@ const Query = {
       updatedAt: "",
     }
   },
-  suggestions: () => {
-    return []
+  suggestions: (_, __, { db: _db }) => {
+    return [
+      {
+        name: "TypeScript Project",
+        handle: "TypeScript",
+        avatarUrl: "http://localhost:3000/static/ts-logo.png",
+        reason: "Because you follow @MichaelLNorth",
+        id: "1",
+      },
+      {
+        name: "jQuery",
+        handle: "jquery",
+        avatarUrl:
+          "http://localhost:3000/static/jquery-logo.jpeg",
+        reason: "Because you follow @FrontendMasters",
+        id: "2",
+      },
+    ]
+    
   },
 }
 
-export default Query
+export default queryTwitterResolver
